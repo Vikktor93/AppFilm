@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "679024101181",
+    "firebase_url": "https://filmapp-45b9c.firebaseio.com",
+    "project_id": "filmapp-45b9c",
+    "storage_bucket": "filmapp-45b9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679024101181:android:e984a56eeacbf40a",
+        "android_client_info": {
+          "package_name": "com.viktor.filmapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679024101181-st6gbp6icgdvme2lubc0llskh52nglv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viktor.filmapp",
+            "certificate_hash": "722e4c4b9c27230b2efe925315391693062d3141"
+          }
+        },
+        {
+          "client_id": "679024101181-1562ufb21l9ebs4oo6hhdnd8spokq3g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQMBriAvNOIt55mmadn0Ii48HXzozp0cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679024101181-1562ufb21l9ebs4oo6hhdnd8spokq3g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
