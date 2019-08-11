@@ -6,6 +6,4 @@ Aplicación que permite buscar peliculas desde una API
 
 Para mayor información buscar la documentacion de Flutter
 [Documentación Online](https://flutter.dev/docs).
-=======
-# FilmApp
 

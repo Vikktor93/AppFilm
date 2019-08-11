@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget{
   
@@ -32,101 +33,138 @@ class LoginState extends State<Login>{
   }
 
   Widget loginForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            
-          ],
-        ),
-        Container(
-          width: 350,
-          child: Form(
-            key: _key,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  validator: (text) {
+
+    final logo = Hero(
+      tag: 'hero',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 48.0,
+        child: Image.asset('assets/img/film.png'),
+      ),
+    );
+
+    final correo = TextFormField(
+      validator: (text) {
+        if (text.length == 0) {
+            return "Este campo correo es requerido";
+          }
+            return null;
+        },
+      keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      initialValue: '',
+      maxLength: 50,
+      onSaved: (text) =>
+                      _correo = text,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'Ingrese su Correo',
+        //labelText: 'Correo',
+        icon: Icon(Icons.email, size: 25.0, color: Colors.blueGrey[800]),    
+      ),  
+    );
+
+
+    final contrasena = TextFormField(
+      validator: (text) {
                     if (text.length == 0) {
-                      return "Este campo correo es requerido";
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  maxLength: 50,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    hintText: 'Ingrese su Correo',
-                    labelText: 'Correo',
-                    counterText: '',
-                    icon:
-                        Icon(Icons.email, size: 25.0, color: Colors.blueGrey[800]),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  onSaved: (text) => _correo = text,
-                ),
-                TextFormField(
-                  validator: (text) {
-                    if (text.length == 0) {
-                      return "Este campo contraseña es requerido";
+                      return "Contraseña es requerida";
                     //} else if (text.length <= 5) {
                       //return "Su contraseña debe ser al menos de 5 caracteres";
                     }
                     return null;
-                  },
-                  keyboardType: TextInputType.text,
-                  maxLength: 20,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                    hintText: 'Ingrese su Contraseña',
-                    labelText: 'Contraseña',
-                    counterText: '',
-                    icon: Icon(Icons.lock, size: 25.0, color: Colors.blueGrey[800]),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-                  ),
-                  onSaved: (text) => _contrasena = text,
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (_key.currentState.validate()) {
-                      _key.currentState.save();
-                      _handleSignIn(_correo, _contrasena).then((user){
-                        openExplorer();
-                      });
-                    }
-                  },
+        },
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      initialValue: '',
+      obscureText: true,
+      onSaved: (text) =>
+                      _contrasena = text,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        hintText: 'Ingrese su Contraseña',
+        //labelText: 'Contraseña',
+        icon: Icon(Icons.lock, size: 25.0, color: Colors.blueGrey[800]),
+      ),
+    );
+
+
+    final loginButton = IconButton(
+                   onPressed: () => _signIn(context)
+                              .then((FirebaseUser user) => print(user))
+                              .catchError((e) => print(e)),
                   icon: Icon(
                     Icons.arrow_forward,
-                    size: 42.0,
+                    size: 40.0,
                     color: Colors.blue[800],
                   ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Divider(),
-        FacebookSignInButton(
-          text: "Conectar con Facebook", 
+                );
+   
+    final facebook = FacebookSignInButton(
+  
+        text: ' Conectarse con Facebook',
           onPressed: () {
             _handleSignInFB().then((user){
               openExplorer();
             });
           }
-        ),
-      ],
+        );
+
+    final forgotLabel = FlatButton(
+      child: Text(
+        'No tienes cuenta? Registrate',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {
+        
+      },
     );
-  }
 
-  Future<FirebaseUser> _handleSignIn(String mail, String pass) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final FirebaseUser user = await _auth.signInWithEmailAndPassword(email: mail, password:pass);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            logo,
+            SizedBox(height: 48.0),
+            correo,
+            SizedBox(height: 8.0),
+            contrasena,
+            SizedBox(height: 24.0),
+            loginButton,
+            SizedBox(height: 15.0),
+             Divider(),
+             SizedBox(height: 8.0),
+            facebook,
+            forgotLabel
+          ],
+        ),
+      ),
+    );
+}
+    
+   GoogleSignIn _googlSignIn = new GoogleSignIn();
+   Future<FirebaseUser> _signIn(BuildContext context) async {
+    final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =await googleUser.authentication;
+    //final FirebaseAuth _auth = FirebaseAuth.instance;
+    //final FirebaseUser user = await _auth.signInWithEmailAndPassword(email: mail, password:pass);
 
-    return user;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => new Home(),
+      ),
+    );
   }
 
   Future<FirebaseUser> _handleSignInFB() async {
@@ -147,3 +185,8 @@ class LoginState extends State<Login>{
   }
 
 }
+
+
+
+
+
