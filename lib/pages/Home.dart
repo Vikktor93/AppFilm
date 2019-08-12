@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('App Films'),
+        title: Text('App Film'),
         backgroundColor: Colors.indigoAccent,
         actions: <Widget>[
           IconButton(
