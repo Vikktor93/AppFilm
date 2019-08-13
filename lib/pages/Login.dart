@@ -1,7 +1,6 @@
 import 'Home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -102,15 +101,36 @@ class LoginState extends State<Login>{
                   ),
                 );
    
-    final facebook = FacebookSignInButton(
-  
-        text: '    Facebook',
+    final facebook = Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      FlatButton(    
           onPressed: () {
             _handleSignInFB().then((user){
               openExplorer();
             });
-          }
-        );
+          },
+          child: Image.asset('assets/img/fb.png', height: 60.0, width: 60.0,)
+      ),
+
+      FlatButton(    
+          onPressed: () {
+            _handleSignInFB().then((user){
+              openExplorer();
+            });
+          },
+          child: Image.asset('assets/img/tw.png', height: 50.0, width: 50.0,)
+      ),
+      
+    ],
+  );
+    
+    
+    
+    
+    
+    
+    
 
     final forgotLabel = FlatButton(
       child: Text(
@@ -173,8 +193,8 @@ class LoginState extends State<Login>{
     final AuthCredential credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
 
     FirebaseUser user = await _fAuth.signInWithCredential(credential);
-
     return user;
+
   }
 
 

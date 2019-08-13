@@ -1,5 +1,6 @@
 import 'package:filmapp/providers/PeliculaProvider.dart';
 import 'package:filmapp/widgets/scroll_horizontal.dart';
+import 'package:filmapp/search/SearchDelegate.dart';
 import 'package:filmapp/widgets/swiper.dart';
 import 'package:flutter/material.dart';
 import '../classes/MenuLateral.dart';
@@ -10,6 +11,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    peliculasprovider.getPopulares();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('App Film'),
@@ -17,7 +21,12 @@ class Home extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+             onPressed: () {
+              showSearch(
+                context: context, 
+                delegate: DataSearch(),
+                );
+            },
           ),
 
         ],
@@ -39,7 +48,6 @@ class Home extends StatelessWidget {
 
   Widget _swiperTargetas(){
 
-   
    peliculasprovider.getEnCines();
    
    return FutureBuilder(
@@ -76,13 +84,15 @@ class Home extends StatelessWidget {
 
           SizedBox(height: 10.0),
 
-          FutureBuilder(
-            future: peliculasprovider.getPopulares(),
+          StreamBuilder(
+            stream: peliculasprovider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               snapshot.data?.forEach( (p)=>(p.title));
               
               if(snapshot.hasData){
-                return ScrollHorizontal(peliculas: snapshot.data);
+                return ScrollHorizontal(
+                  peliculas: snapshot.data,
+                  nextPage: peliculasprovider.getPopulares,);
               } else {
                 return Center(child: CircularProgressIndicator());
               } 

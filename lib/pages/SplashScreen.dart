@@ -39,12 +39,12 @@ class _SplashScreenState extends State<SplashScreen> {
             child: SafeArea(
               child: FractionallySizedBox(
                 widthFactor: 0.95,
-                child: Text("MyIMDB"),
+                child: Text(""),
               ),
             ),
           ),
           Text(
-            'Bienvenido',
+            '',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25.0,

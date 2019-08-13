@@ -6,6 +6,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 class CardSwiper extends StatelessWidget {
 
   final List<Film> peliculas;
+  
+  //constructor
   CardSwiper({ @required this.peliculas});
 
   @override

@@ -32,6 +32,8 @@ flutter:
     - assets/img/film1.png
     - assets/img/loading.gif
     - assets/img/no-image.jpg
+    - assets/img/fb.png
+    - assets/img/tw.png
     
 
   fonts:

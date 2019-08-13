@@ -11,6 +11,7 @@ class PeliculasProvider{
   String _language = 'es-ES';
 
   int _popularesPage = 0;
+  bool _cargando = false;
 
   List<Film> _populares = new List();
 
@@ -29,6 +30,8 @@ class PeliculasProvider{
 Future<List<Film>> _procesarRespuesta(Uri url) async {
 
       final resp = await http.get(url);
+      
+      //transforma la informacion a un Map
       final decodedData = json.decode(resp.body);
 
       final peliculas = new Films.fromJsonList(decodedData['results']);
@@ -49,6 +52,10 @@ Future <List<Film>>getEnCines() async{
 
   Future <List<Film>>getPopulares() async{
 
+    if(_cargando) return [];
+
+    _cargando = true;
+
     _popularesPage++;
 
       final url = Uri.https(_url, '3/movie/popular', {
@@ -62,10 +69,23 @@ Future <List<Film>>getEnCines() async{
       _populares.addAll(resp);
       popularesSink( _populares);
 
-      return resp;
+      _cargando = false;
 
-      
+      return resp;
   }
 
 
+   Future<List<Film>> buscarPelicula( String query ) async {
+
+    final url = Uri.https(_url, '3/search/movie', {
+      'api_key'  : _apikey,
+      'language' : _language,
+      'query'    : query
+    });
+
+    return await _procesarRespuesta(url);
+
+  }
+  
 }
+

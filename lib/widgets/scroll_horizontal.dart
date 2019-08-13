@@ -1,36 +1,49 @@
 import 'package:filmapp/models/PeliculaModel.dart';
+import 'package:filmapp/pages/DetallePelicula.dart';
 import 'package:flutter/material.dart';
 
 class ScrollHorizontal extends StatelessWidget {
   
   final List<Film> peliculas;
+  final Function nextPage;
+
 
   //constructor
-  ScrollHorizontal({@required this.peliculas});
+  ScrollHorizontal({@required this.peliculas, @required this.nextPage});
+
+  final _pageController = new PageController(
+          initialPage: 1,
+          viewportFraction: 0.3,
+  );
 
   @override
   Widget build(BuildContext context) {
 
     final _screenSize = MediaQuery.of(context).size;
 
+    _pageController.addListener((){
+
+        if(_pageController.position.pixels >= _pageController.position.maxScrollExtent -200){
+          nextPage();
+        }
+    });
+    
     return Container(
       height: _screenSize.height * 0.25,
-      child: PageView(
+      child: PageView.builder(
         pageSnapping: false,
-        controller: PageController(
-          initialPage: 1,
-          viewportFraction: 0.3,
-        ),
-        children: _tarjetas(),
+        controller: _pageController,
+        //children: _tarjetas(),
+        itemCount: peliculas.length,
+        itemBuilder: (context, i){
+            return _cards(context, peliculas[i]);
+        },
       ),
     );
   }
 
-  List<Widget> _tarjetas(){
-
-      return peliculas.map((pelicula){
-
-        return Container(
+  Widget _cards(BuildContext context, Film pelicula){
+    final tarjeta = Container(
           margin: EdgeInsets.only(right: 15.0),
           child: Column(
             children: <Widget>[
@@ -47,8 +60,13 @@ class ScrollHorizontal extends StatelessWidget {
           ),
 
         );
-      }).toList();
 
-
+        return GestureDetector(
+          child: tarjeta,
+          onTap: (){
+              Navigator.of(context).pushNamed('/detalle', arguments: pelicula);
+          } ,
+        );
   }
+
 }
