@@ -1,6 +1,8 @@
 import 'package:filmapp/providers/PeliculaProvider.dart';
+import 'package:filmapp/widgets/scroll_horizontal.dart';
 import 'package:filmapp/widgets/swiper.dart';
 import 'package:flutter/material.dart';
+import '../classes/MenuLateral.dart';
 
 class Home extends StatelessWidget {
 
@@ -11,24 +13,23 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('App Film'),
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: Colors.redAccent[400],
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {},
           ),
 
-          IconButton(
-            icon: Icon(Icons.dehaze),
-            onPressed: () {},
-          ),
         ],
       ),
      
+     drawer: MenuLateral(),
      body: Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-            _swiperTargetas()
+            _swiperTargetas(),
+            _footer(context)
         ],
       ),
      ),
@@ -60,6 +61,36 @@ class Home extends StatelessWidget {
      },
    );
   }
+
+  Widget _footer(BuildContext context){
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+             padding: EdgeInsets.only(left: 20.0),
+             child: Text('Peliculas Populares', style: Theme.of(context).textTheme.subhead),
+          ),
+
+          SizedBox(height: 5.0),
+
+          FutureBuilder(
+            future: peliculasprovider.getPopulares(),
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              snapshot.data?.forEach( (p)=>(p.title));
+              
+              if(snapshot.hasData){
+                return ScrollHorizontal(peliculas: snapshot.data);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              } 
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-
+ 

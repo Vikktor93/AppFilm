@@ -39,7 +39,7 @@ class LoginState extends State<Login>{
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset('assets/img/film.png'),
+        child: Image.asset('assets/img/film1.png'),
       ),
     );
 
@@ -61,7 +61,7 @@ class LoginState extends State<Login>{
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
         hintText: 'Ingrese su Correo',
         //labelText: 'Correo',
-        icon: Icon(Icons.email, size: 25.0, color: Colors.blueGrey[800]),    
+        icon: Icon(Icons.email, size: 25.0, color: Colors.redAccent[400]),    
       ),  
     );
 
@@ -86,7 +86,7 @@ class LoginState extends State<Login>{
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
         hintText: 'Ingrese su Contraseña',
         //labelText: 'Contraseña',
-        icon: Icon(Icons.lock, size: 25.0, color: Colors.blueGrey[800]),
+        icon: Icon(Icons.lock, size: 25.0, color: Colors.redAccent[400]),
       ),
     );
 
@@ -98,7 +98,7 @@ class LoginState extends State<Login>{
                   icon: Icon(
                     Icons.arrow_forward,
                     size: 40.0,
-                    color: Colors.blue[800],
+                    color: Colors.redAccent[400],
                   ),
                 );
    

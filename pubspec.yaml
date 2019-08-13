@@ -29,6 +29,7 @@ flutter:
 
   assets:
     - assets/img/film.png
+    - assets/img/film1.png
     - assets/img/loading.gif
     - assets/img/no-image.jpg
     
