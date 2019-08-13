@@ -104,7 +104,7 @@ class LoginState extends State<Login>{
    
     final facebook = FacebookSignInButton(
   
-        text: '    Conectarse con Facebook',
+        text: '    Facebook',
           onPressed: () {
             _handleSignInFB().then((user){
               openExplorer();

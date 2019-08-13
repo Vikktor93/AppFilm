@@ -37,7 +37,6 @@ class Home extends StatelessWidget {
     );
   }
 
-
   Widget _swiperTargetas(){
 
    
@@ -57,6 +56,7 @@ class Home extends StatelessWidget {
              child: CircularProgressIndicator()
              ) 
            );
+           
        }
      },
    );
@@ -68,12 +68,13 @@ class Home extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           Container(
-             padding: EdgeInsets.only(left: 20.0),
+             padding: EdgeInsets.only(top: 12.0, left: 20.0),
              child: Text('Peliculas Populares', style: Theme.of(context).textTheme.subhead),
           ),
 
-          SizedBox(height: 5.0),
+          SizedBox(height: 10.0),
 
           FutureBuilder(
             future: peliculasprovider.getPopulares(),

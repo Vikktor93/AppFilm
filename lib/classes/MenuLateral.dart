@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class MenuLateral extends StatelessWidget{
 
     @override
@@ -21,20 +22,73 @@ class MenuLateral extends StatelessWidget{
               Ink(
                 color: Colors.redAccent[400],
                 child: new ListTile(
-                    title: Text("Menu 1", style: TextStyle(color: Colors.white),),
+                    title: Text("Home", style: TextStyle(color: Colors.white),),
                     onTap: (){},
                 ),
               ),
+
+              SizedBox(height: 1.0),
               
-              new ListTile(
-                title: Text("Menu 2"),
+              Ink(
+                color: Colors.redAccent[400],
+                child: new ListTile(
+                    title: Text("Mejor Valoradas", style: TextStyle(color: Colors.white),),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => Valoradas()
+                          )
+                      );
+                    },
+                ),
               ),
 
-              new ListTile(
-                title: Text("Menu 2"),
-              )
+              SizedBox(height: 1.0),
+
+              Ink(
+                color: Colors.redAccent[400],
+                child: new ListTile(
+                    title: Text("Favoritas", style: TextStyle(color: Colors.white),),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                ),
+              ),
+              SizedBox(height: 220.0),
+
+              Divider(),
+
+              Ink(
+                color: Colors.redAccent[400],
+                child: new ListTile(
+                    title: Text("Logout", style: TextStyle(color: Colors.white),),
+                    onTap: (){
+
+        
+                     
+                    },
+                ),
+              ),
             ],
           ),
       );
     }
+}
+
+class Valoradas extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+     appBar: AppBar(
+        title: Text('App Film'),
+        backgroundColor: Colors.redAccent[400],
+    ),
+
+    body: Center(
+      child: Text("Mejor Valoradas"),
+    ),
+    );
+  }
 }
